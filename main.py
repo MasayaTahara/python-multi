@@ -1,5 +1,5 @@
 from time import sleep
-from concurrent import futures
+from concurrent.futures import ThreadPoolExecutor
 import time
 from functools import wraps
 
@@ -29,11 +29,8 @@ def single_thread(times: int) -> int:
 
 @processing_time
 def multi_thread(times: int) -> int:
-    sum = 0
-    with futures.ThreadPoolExecutor(max_workers=3) as executor:
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = []
         for _ in range(times):
-            future = executor.submit(sleep1_and_return3)
-            result = future.result()
-            sum += result
-        _ = futures.as_completed(fs=sum)
-    return sum
+            futures.append(executor.submit(sleep1_and_return3))
+    return sum([f.result() for f in futures])
