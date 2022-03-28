@@ -1,5 +1,5 @@
 # python-multi
-Sample code for concurrent logic by Pthon
+Sample code for concurrent logic by Python
 
 
 ## Set up
