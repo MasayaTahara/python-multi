@@ -1,4 +1,4 @@
 .PHONY: run-tests
 
 run-tests:
-	poetry run pytest -vvs
+	poetry run pytest -vvs ./tests/
