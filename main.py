@@ -40,10 +40,15 @@ class Validator:
     def __init__(self):
         self.sum = 0
 
+    def _sleep1_and_add3(self):
+        sleep(1)
+        self.sum += 3
+        return
+
     @processing_time
     def _single_thread(self, times: int) -> int:
         for _ in range(times):
-            self.sum += sleep1_and_return3()
+            self._sleep1_and_add3()
         return self.sum
 
     @processing_time
@@ -51,6 +56,5 @@ class Validator:
         with ThreadPoolExecutor(max_workers=3) as executor:
             futures = []
             for _ in range(times):
-                futures.append(executor.submit(sleep1_and_return3))
-        self.sum = sum([f.result() for f in futures])
+                futures.append(executor.submit(self._sleep1_and_add3))
         return self.sum
