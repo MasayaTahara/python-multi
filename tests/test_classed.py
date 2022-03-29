@@ -9,6 +9,7 @@ def test_single_thread_in_class():
 
 def test_multi_thread_without_lock_in_class():
     validator = Validator()
+    # FIXME: Passed in Mac, failed in WSL
     assert 3_000_000 > validator._multi_thread_without_lock(3)
 
 
